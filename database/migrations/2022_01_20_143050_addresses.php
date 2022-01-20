@@ -13,7 +13,13 @@ class Addresses extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('addresses',function (Blueprint $table){
+
+            $table->bigIncrements('id');
+            $table->string('address',100)->nullable();
+            $table->string('house_fias_id')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class Addresses extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('addresses');
     }
 }

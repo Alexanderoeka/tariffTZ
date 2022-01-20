@@ -1,32 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Address;
-
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Database\Seeder;
 use Dadata\DadataClient;
+use Illuminate\Support\Facades\DB;
 
-class AddressController extends Controller
+class AddressesSeeder extends Seeder
 {
-    private $token;
-    private $secret;
-    private $dadata;
-
-    public function __construct()
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
-
-        $this->token = 'a733faca1da82cb5d79ce4e80787ad4ab6ba9b67';
-        $this->secret = '581f751618547251874961240d87f1c6130c1a99';
-        $this->dadata =  new DadataClient($this->token, $this->secret);
-    }
-
-    public function index()
-    {
-        echo 'hii';
-        $response = $this->dadata->clean("address", "  г Самар ул Советска 10");
-
-        echo '<br>';
-        print_r(gettype($response['house_fias_id']));
+        $token ='a733faca1da82cb5d79ce4e80787ad4ab6ba9b67';
+        $secret='581f751618547251874961240d87f1c6130c1a99';
+        $dadata =  new DadataClient($token, $secret);
         $addresses_array = [
             'Россия, г. Екатеринбург, Советская ул., д. 20 ',
             'г. Стерлитамак, Садовый пер., д. 25 ',
@@ -57,7 +46,7 @@ class AddressController extends Controller
             ' г. Нижний Новгород, Лесной пер., д. 9'
         ];
         foreach ($addresses_array as $address) {
-            $responses[] = $this->dadata->clean("address", $address);
+            $responses[] = $dadata->clean("address", $address);
         }
         $addressesForDB = array();
 
@@ -66,15 +55,10 @@ class AddressController extends Controller
             $addressesForDB[$i]['address'] = $response['result'];
             $addressesForDB[$i]['house_fias_id'] = $response['house_fias_id'];
 
-            $i++;
+                $i++;
         }
-        echo '<br>';
-        print_r($addressesForDB);
-        // $i = 1;
-        // foreach ($addressesForDB as $addressForDB) {
-        //     echo '<br>' . $i .'<br>';
-        //     echo $addressForDB['address'] . '<br>';
-        //     echo $addressForDB['house_fias_id'] . '<br><br><br><br>';
-        // }
+        foreach($addressesForDB as $addressForDB){
+        DB::table('addresses')->insert($addressForDB);
+}
     }
 }
