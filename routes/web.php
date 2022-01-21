@@ -12,6 +12,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/addresses','Address\AddressController@index')->name('addresses');
 
 Route::get('/','Address\AddressController@show')->name('show.addresses');
+
