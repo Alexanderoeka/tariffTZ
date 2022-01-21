@@ -18,6 +18,9 @@ class Addresses extends Migration
             $table->bigIncrements('id');
             $table->string('address',100)->nullable();
             $table->string('house_fias_id')->nullable();
+            $table->string('region_with_type')->nullable();
+            $table->string('city_with_type')->nullable();
+            $table->string('street_with_type')->nullable();
             $table->timestamps();
         });
     }

@@ -38,17 +38,17 @@ class AddressesSeeder extends Seeder
             ' Солнечный пер., д. 19 ',
             ' Зеленая ул., д. 3 ',
             ' Новая ул., д. 21 ',
-            ' Строителей ул., д. 9 ',
-            'Красноармейская ул., д. 4 ',
-            ' Коммунистическая ул., д. 5 ',
-            ' Полесская ул., д. 9 ',
-            ' Дзержинского ул., д. 9 ',
-            'Песчаная ул., д. 24 ',
-            '  Нижний Новгород, Лесной пер., д. 9',
-            ' шоссе Балканская, 03',
-            ' въезд Славы, 54',
-            'город Ступино, спуск Будапештсткая, 51',
-            'город Луховицы, пл. 1905 года, 53',
+            // ' Строителей ул., д. 9 ',
+            // 'Красноармейская ул., д. 4 ',
+            // ' Коммунистическая ул., д. 5 ',
+            // ' Полесская ул., д. 9 ',
+            // ' Дзержинского ул., д. 9 ',
+            // 'Песчаная ул., д. 24 ',
+            // '  Нижний Новгород, Лесной пер., д. 9',
+            // ' шоссе Балканская, 03',
+            // ' въезд Славы, 54',
+            // 'город Ступино, спуск Будапештсткая, 51',
+            // 'город Луховицы, пл. 1905 года, 53',
             'город Подольск, въезд Будапештсткая, 08',
             'город Коломна, проезд Балканская, 13',
             'улица Мичурина, 3',
@@ -70,7 +70,7 @@ class AddressesSeeder extends Seeder
 
         ];
         foreach ($addresses_array as $address) {
-            $add  = $dadata->suggest("address", $address, 3);
+            $add  = $dadata->suggest("address", $address, 5);
             if (isset($add[0]['value']) != null) {
                 $responses[] = $add;
             }
@@ -86,6 +86,9 @@ class AddressesSeeder extends Seeder
 
             $addressesForDB[$i]['address'] = $elem[0]['value'];
             $addressesForDB[$i]['house_fias_id'] = $elem[0]['data']['house_fias_id'];
+            $addressesForDB[$i]['region_with_type'] = $elem[0]['data']['region_with_type'];
+            $addressesForDB[$i]['city_with_type'] = $elem[0]['data']['city_with_type'];
+            $addressesForDB[$i]['street_with_type'] = $elem[0]['data']['street_with_type'];
             $addressesForDB[$i]['created_at'] = Carbon::now(new DateTimeZone('Europe/Samara'));
             $addressesForDB[$i]['updated_at'] = $addressesForDB[$i]['created_at'];
             $i++;
