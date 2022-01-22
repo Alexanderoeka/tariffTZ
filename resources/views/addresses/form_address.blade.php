@@ -20,7 +20,11 @@
     @endif
 
     @if(Session::get('success')!=null)
-        <div>{{Session::get('success')}}</div>
+        <div>
+            @foreach(Session::get('success') as $success)
+            <div>{{$success}}</div>
+            @endforeach
+        </div>
     @endif
     <br>
     <a href="{{ route('show.addresses') }}">Таблица адресов</a>

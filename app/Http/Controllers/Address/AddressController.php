@@ -70,6 +70,8 @@ class AddressController extends Controller
     public function storeAddress(Request $request)
     {
 
+
+
         $address = $this->dadata->suggest('address',$request->address,1);
 
         // dd(Address::select()->where('address',$address[0]['value'])->get()->isEmpty());
@@ -80,15 +82,17 @@ class AddressController extends Controller
 
             if(!Address::select()->where('city_with_type',$address[0]['data']['city_with_type'])->get()->isEmpty())
             {
-                $message = 'Такой город уже присутствует в базе данных';
+
+                // dd($address[0]['data']['city_with_type']);
+                $success[] = 'Такой город уже присутствует в базе данных';
                 if(!Address::select()->where('address',$address[0]['value'])->get()->isEmpty())
                 {
-                    $message = 'Ошибка -> Такой адрес уже присутствует в базе данных!';
-                    return redirect()->back()->withErrors($message);
+                    $error = 'Ошибка -> Такой адрес уже присутствует в базе данных!';
+                    return redirect()->back()->withErrors($error);
                 }
             }
 
-            //if(== null)
+
 
             $formatedAddress['address'] = $address[0]['value'];
             $formatedAddress['house_fias_id'] = $address[0]['data']['house_fias_id'];
@@ -104,7 +108,7 @@ class AddressController extends Controller
         $newAddress = new Address($formatedAddress);
         $newAddress->save();
 
-        $success = '' . "<br>" . $message ."<br />Сохранение в базу было успешно"  ;
+        $success[] = ' Сохранение в базу было успешно'  ;
 
         return redirect()->route('formaddress')->with('success',$success);
 
