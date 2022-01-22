@@ -96,6 +96,7 @@ class AddressesSeeder extends Seeder
             $addressesForDB[$i]['region_with_type'] = $elem[0]['data']['region_with_type'];
             $addressesForDB[$i]['city_with_type'] = $elem[0]['data']['city_with_type'];
             $addressesForDB[$i]['street_with_type'] = $elem[0]['data']['street_with_type'];
+            // Условие, добавляющие время "создания" записи с 20 по 40 секунду
             if ($i > count($responses) - 7) {
                 $addressesForDB[$i]['created_at'] = date('Y-m-d H:i:s', strtotime('2022-01-19 17:16:' . rand(21, 39)));
             } else {
