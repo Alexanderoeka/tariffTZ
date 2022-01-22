@@ -5,6 +5,7 @@ use Dadata\DadataClient;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
+// Сидер добавления адресов
 class AddressesSeeder extends Seeder
 {
     /**
@@ -69,12 +70,17 @@ class AddressesSeeder extends Seeder
 
 
         ];
+
+        // Каждый отдельный адрес проходит через API
+        // и если он существует, то добовляется в массив адресов с данными
+        // о адресе
         foreach ($addresses_array as $address) {
             $add  = $dadata->suggest("address", $address, 5);
             if (isset($add[0]['value']) != null) {
                 $responses[] = $add;
             }
         }
+        // Массив, который пойдет в бд
         $addressesForDB = array();
 
 
@@ -82,6 +88,7 @@ class AddressesSeeder extends Seeder
 
         $i = 0;
 
+        // Запись нужных данных в массив бд
         foreach ($responses as $elem) {
 
             $addressesForDB[$i]['address'] = $elem[0]['value'];
@@ -94,6 +101,7 @@ class AddressesSeeder extends Seeder
             $i++;
         }
 
+        // Запись отформатированных адресов в таблицу `addresses`
         foreach ($addressesForDB as $addressForDB) {
             DB::table('addresses')->insert($addressForDB);
         }

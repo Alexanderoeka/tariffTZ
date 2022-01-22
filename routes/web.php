@@ -12,11 +12,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+// Роут к главной странице. Страница вывода всех таблиц адресов(данных)
 Route::get('/','Address\AddressController@show')->name('show.addresses');
 
-Route::get('/try','Address\AddressController@try')->name('try');
 
+// Роут к форме ввода адресса
 Route::get('/formaddress','Address\AddressController@formAddress')->name('formaddress');
 
+// Роут сохранения данных из формы 'formaddress'
 Route::post('/storeaddress','Address\AddressController@storeAddress')->name('storeaddress');
