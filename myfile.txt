@@ -10,3 +10,9 @@ php composer.phar dump-autoload
 
 
 check
+
+
+> git push origin main:main
+fatal: unable to access 'https://github.com/Alexanderoeka/tariffaddresses.git/': error setting certificate verify locations:  CAfile: D:/programming/Git/mingw64/ssl/certs/ca-bundle.crt CApath: none
+
+"D:\Programs\forProgramming\Git\mingw64\ssl\certs\ca-bundle.crt"
