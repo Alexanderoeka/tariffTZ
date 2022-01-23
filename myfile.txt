@@ -7,3 +7,6 @@ http://tarifff.ru/formaddress
 
 
 php composer.phar dump-autoload
+
+
+check
